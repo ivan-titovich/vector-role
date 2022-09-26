@@ -1,4 +1,11 @@
 ---
+- name: Restart nginx
+  become: true
+  ansible.builtin.service:
+    state: restarted
+    daemon_reload: yes
+    name: nginx
+
 - name: Restart vector
   become: true
   ansible.builtin.service:
