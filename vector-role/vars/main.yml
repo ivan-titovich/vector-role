@@ -1,0 +1,6 @@
+---
+# vars file for vector-role
+
+vector_template: "files/vector.toml"
+vector_config_file: "/etc/vector/vector.toml"
+
