@@ -1,14 +1,17 @@
-[sources.nginx_logs]
-type = "file"
-include = [ "/var/log/nginx/my_access.log" ]
-read_from = "end"
+[sources.generate_syslog]
+type = "demo_logs"
+format = "syslog"
+count = 100
 
-[transforms.nginx_parser]
-  inputs  = ["nginx_logs"]
-  type    = "regex_parser"
-  regex = '^(?P<host>[w.]+) - (?P<user>[w]+) (?P<bytes_in>[d]+) [(?P<timestamp>.*)] "(?P<method>[w]+) (?P<path>.*)" (?P<status>[d]+) (?P<bytes_out>[d]+)$'
+[transforms.remap_syslog]
+inputs = [ "generate_syslog"]
+type = "remap"
+source = '''
+  structured = parse_syslog!(.message)
+  . = merge(., structured)
+'''
 
-[sinks.print]
-  inputs = ["nginx_parser"]
-  type   = "console"
-  encoding = "ndjson"
+[sinks.emit_syslog]
+inputs = ["remap_syslog"]
+type = "console"
+encoding.codec = "json"
