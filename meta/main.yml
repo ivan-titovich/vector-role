@@ -1,13 +1,8 @@
 galaxy_info:
   role_name: vector_role  # if absent directory name hosting role is used instead
   namespace: ivan_titovich  # if absent, author is used instead
-
-
-  #  role_name: vector-role
-#  namespace: 'ivantitovich'
   author: Ivan Titovich
   description: This is role for vector.
-
 
   license: MIT
 
